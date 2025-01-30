@@ -1,0 +1,130 @@
+{
+  "_id": { "$oid": "678bed93460bef6f490e6c5e" },
+  "userEmail": "rntbzbg@gmail.com",
+  "receiptId": "675a866e-e0b1-4e81-bd8a-89de40b4421f",
+  "creationDateTime": { "$date": { "$numberLong": "1737212771096" } },
+  "placeName": "Pocha Bang Bang",
+  "tipPercent": { "$numberDouble": "0.1" },
+  "items": [
+    {
+      "id": "e2058d28-40e1-4bf3-879d-54de399f317f",
+      "name": "Jugo del Dia",
+      "quantity": { "$numberInt": "1" },
+      "unitPrice": { "$numberDouble": "3000.0" },
+      "owners": []
+    },
+    {
+      "id": "ba58c772-f1d7-47ab-af6d-2291a90b64b6",
+      "name": "Japchae",
+      "quantity": { "$numberInt": "1" },
+      "unitPrice": { "$numberDouble": "12900.0" },
+      "owners": []
+    },
+    {
+      "id": "7df988d7-690e-48a6-aa1c-616701913d6e",
+      "name": "Limonada Casera",
+      "quantity": { "$numberInt": "1" },
+      "unitPrice": { "$numberDouble": "3500.0" },
+      "owners": []
+    },
+    {
+      "id": "cf8301ff-8f6a-4d13-992d-4b3ce3a37041",
+      "name": "Bulgogi",
+      "quantity": { "$numberInt": "1" },
+      "unitPrice": { "$numberDouble": "12900.0" },
+      "owners": []
+    },
+    {
+      "id": "2a447d0e-735c-4a84-a4ee-6bbbde118270",
+      "name": "Porción de Kimchi",
+      "quantity": { "$numberInt": "1" },
+      "unitPrice": { "$numberDouble": "3000.0" },
+      "owners": []
+    },
+    {
+      "id": "450e6d24-ef20-419d-b8e0-088f6279e38e",
+      "name": "Jugo del Dia",
+      "quantity": { "$numberInt": "1" },
+      "unitPrice": { "$numberDouble": "3000.0" },
+      "owners": []
+    },
+    {
+      "id": "0b23c28e-c75a-4b7d-9a9f-84cbbc619acd",
+      "name": "Porción de Arroz",
+      "quantity": { "$numberInt": "1" },
+      "unitPrice": { "$numberDouble": "1500.0" },
+      "owners": []
+    },
+    {
+      "id": "1dde6676-861b-42ca-904d-747fa7e9a218",
+      "name": "Porción de Arroz",
+      "quantity": { "$numberInt": "1" },
+      "unitPrice": { "$numberDouble": "1500.0" },
+      "owners": []
+    },
+    {
+      "id": "33beb56f-bc7d-4e64-8029-c677780ad4da",
+      "name": "Jugo del Dia",
+      "quantity": { "$numberInt": "1" },
+      "unitPrice": { "$numberDouble": "3000.0" },
+      "owners": []
+    },
+    {
+      "id": "8de1b50f-7d76-455b-aa0d-6512400e386a",
+      "name": "Ramen bokkeumbab",
+      "quantity": { "$numberInt": "1" },
+      "unitPrice": { "$numberDouble": "10900.0" },
+      "owners": []
+    },
+    {
+      "id": "a416a848-2a02-4131-98cf-8f8c475b773c",
+      "name": "Bulgogi",
+      "quantity": { "$numberInt": "1" },
+      "unitPrice": { "$numberDouble": "12900.0" },
+      "owners": []
+    },
+    {
+      "id": "66883eae-d7be-45d1-b656-4a89c06840f0",
+      "name": "Tteokbokki",
+      "quantity": { "$numberInt": "1" },
+      "unitPrice": { "$numberDouble": "10900.0" },
+      "owners": []
+    },
+    {
+      "id": "b213c35e-7b0f-470c-bcbc-80affc1fb9c4",
+      "name": "Limonada Casera",
+      "quantity": { "$numberInt": "1" },
+      "unitPrice": { "$numberDouble": "3500.0" },
+      "owners": []
+    },
+    {
+      "id": "dcf24ce3-a581-4615-90d8-ae1a0d688b76",
+      "name": "Tteok Frito",
+      "quantity": { "$numberInt": "1" },
+      "unitPrice": { "$numberDouble": "3000.0" },
+      "owners": []
+    },
+    {
+      "id": "915c30aa-2f65-4669-bf20-0762b3dfbd55",
+      "name": "Ensaladita de Pickle",
+      "quantity": { "$numberInt": "1" },
+      "unitPrice": { "$numberDouble": "3000.0" },
+      "owners": []
+    },
+    {
+      "id": "9d051fa0-99e7-45f0-bc14-90e0a066e0ca",
+      "name": "coca cola zero",
+      "quantity": { "$numberInt": "1" },
+      "unitPrice": { "$numberDouble": "2500.0" },
+      "owners": []
+    },
+    {
+      "id": "2c4bb3c1-e302-42ab-a981-477d616f7831",
+      "name": "coca cola zero",
+      "quantity": { "$numberInt": "1" },
+      "unitPrice": { "$numberDouble": "2500.0" },
+      "owners": []
+    }
+  ],
+  "people": ["Javi", "Max", "Danilo", "Clau", "Renato"]
+}

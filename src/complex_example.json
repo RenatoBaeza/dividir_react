@@ -1,0 +1,18 @@
+{
+  "_id": { "$oid": "67904bdde70f8b76d454ac3d" },
+  "userEmail": "rntbzbg@gmail.com",
+  "receiptId": "138ea316-b5ea-4582-b75a-1c65c3484812",
+  "creationDateTime": { "$date": { "$numberLong": "1737374400000" } },
+  "placeName": "Café de Prueba",
+  "tipPercent": { "$numberDouble": "0.1" },
+  "items": [
+    {
+      "id": "c1a0d5b8-3822-4bab-acc2-7179a8948ef9",
+      "name": "Papas fritas veganas",
+      "quantity": { "$numberInt": "1" },
+      "unitPrice": { "$numberDouble": "14000.0" },
+      "owners": ["Malala", "Pelele", "Bipipi", "Nololo"]
+    }
+  ],
+  "people": ["Malala", "Pelele", "Bipipi", "Nololo", "Dududu"]
+}

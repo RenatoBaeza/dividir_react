@@ -1,0 +1,16 @@
+@keyframes pulseOutline {
+  0% {
+    outline-color: rgba(var(--primary), 0.1);
+  }
+  50% {
+    outline-color: rgba(var(--primary), 0.5);
+  }
+  100% {
+    outline-color: rgba(var(--primary), 0.1);
+  }
+}
+
+.pulse-outline {
+  outline: 2px solid transparent;
+  animation: pulseOutline 2s infinite;
+} 
