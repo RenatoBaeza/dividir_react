@@ -154,9 +154,6 @@ export function MyReceipts() {
     <div className="space-y-6 relative min-h-screen pb-20">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold tracking-tight">📄 Mis cuentas</h1>
-        <div className="hidden md:block">
-          <UploadButton />
-        </div>
       </div>
 
       {receipts.length === 0 ? (
@@ -216,13 +213,6 @@ export function MyReceipts() {
         </ScrollArea>
       )}
 
-      {/* Fixed Mobile Button */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-background border-t">
-        <div className="container mx-auto">
-          <UploadButton />
-        </div>
-      </div>
-
       <AlertDialog open={receiptToDelete !== null} onOpenChange={() => setReceiptToDelete(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -237,6 +227,13 @@ export function MyReceipts() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* Fixed Footer */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-sm border-t">
+        <div className="container mx-auto flex justify-center">
+          <UploadButton />
+        </div>
+      </div>
     </div>
   );
 }
