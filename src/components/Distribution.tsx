@@ -393,7 +393,7 @@ export function Distribution() {
       <div className="fixed bottom-0 left-0 right-0 bg-background border-t p-4 shadow-lg">
         <div className="container mx-auto flex flex-col sm:flex-row justify-center gap-2">
           <Button
-            variant="outline"
+            variant="default"
             size="sm"
             onClick={async () => {
               try {
@@ -416,7 +416,7 @@ export function Distribution() {
             📋 Copiar al Portapapeles
           </Button>
           <Button
-            variant="outline"
+            variant="default"
             size="sm"
             onClick={shareViaWhatsApp}
             className="w-full sm:w-[200px] bg-black text-white hover:shadow-glow"
