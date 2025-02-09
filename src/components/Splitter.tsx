@@ -671,7 +671,7 @@ export function Splitter() {
                         className="cursor-pointer hover:bg-accent hover:text-accent-foreground px-2 py-1 rounded flex items-center gap-1"
                       >
                         {(selectedReceipt?.tipPercent * 100).toFixed(0)}% 
-                        <span className="text-xs text-muted-foreground">(click para editar)</span>
+                        <span className="text-xs text-muted-foreground">(Editar✏️)</span>
                       </span>
                     </div>
                   )}
@@ -718,88 +718,70 @@ export function Splitter() {
                             </span>
                           )}
                         </ItemCardTitle>
-                        <div className="flex gap-1">
-                          {getNumberValue(item.quantity) > 1 && (
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => handleSplitItem(item.id)}
-                              className="h-8 w-8 text-muted-foreground hover:text-primary"
-                              title="Dividir en ítems individuales"
-                            >
-                              <Split className="h-4 w-4" />
-                            </Button>
-                          )}
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => setItemToDelete(item.id)}
-                            className="h-8 w-8 text-muted-foreground hover:text-destructive"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
                       </div>
                     </ItemCardHeader>
-                    <ItemCardContent className="space-y-1">
-                      <div className="flex justify-between items-center">
-                        <span className="text-xs text-muted-foreground">Precio:</span>
-                        {editingField?.itemId === item.id && editingField.field === "unitPrice" ? (
-                          <Input
-                            ref={inputRef}
-                            type="number"
-                            step="0.01"
-                            defaultValue={getNumberValue(item.unitPrice)}
-                            className="w-24"
-                            onBlur={(e) =>
-                              handleEditComplete(item.id, "unitPrice", e.target.value)
-                            }
-                            onKeyDown={(e) =>
-                              handleKeyDown(e, item.id, "unitPrice", e.currentTarget.value)
-                            }
-                          />
-                        ) : (
-                          <span
-                            onClick={() => handleEdit(item.id, "unitPrice")}
-                            className="cursor-pointer hover:bg-accent hover:text-accent-foreground rounded"
-                          >
-                            {formatPrice(getNumberValue(item.unitPrice))}
+                    <ItemCardContent className="space-y-4">
+                      <div className="space-y-1">
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs text-muted-foreground">Precio:</span>
+                          {editingField?.itemId === item.id && editingField.field === "unitPrice" ? (
+                            <Input
+                              ref={inputRef}
+                              type="number"
+                              step="0.01"
+                              defaultValue={getNumberValue(item.unitPrice)}
+                              className="w-24"
+                              onBlur={(e) =>
+                                handleEditComplete(item.id, "unitPrice", e.target.value)
+                              }
+                              onKeyDown={(e) =>
+                                handleKeyDown(e, item.id, "unitPrice", e.currentTarget.value)
+                              }
+                            />
+                          ) : (
+                            <span
+                              onClick={() => handleEdit(item.id, "unitPrice")}
+                              className="cursor-pointer hover:bg-accent hover:text-accent-foreground rounded"
+                            >
+                              {formatPrice(getNumberValue(item.unitPrice))}
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs text-muted-foreground">Cantidad:</span>
+                          {editingField?.itemId === item.id && editingField.field === "quantity" ? (
+                            <Input
+                              ref={inputRef}
+                              type="number"
+                              defaultValue={getNumberValue(item.quantity)}
+                              className="w-24"
+                              onBlur={(e) =>
+                                handleEditComplete(item.id, "quantity", e.target.value)
+                              }
+                              onKeyDown={(e) =>
+                                handleKeyDown(e, item.id, "quantity", e.currentTarget.value)
+                              }
+                            />
+                          ) : (
+                            <span
+                              onClick={() => handleEdit(item.id, "quantity")}
+                              className="cursor-pointer hover:bg-accent hover:text-accent-foreground px-2 rounded"
+                            >
+                              {getNumberValue(item.quantity)}
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs text-muted-foreground">Total:</span>
+                          <span className="font-medium">
+                            {formatPrice(getNumberValue(item.quantity) * getNumberValue(item.unitPrice))}
                           </span>
-                        )}
+                        </div>
                       </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-xs text-muted-foreground">Cantidad:</span>
-                        {editingField?.itemId === item.id && editingField.field === "quantity" ? (
-                          <Input
-                            ref={inputRef}
-                            type="number"
-                            defaultValue={getNumberValue(item.quantity)}
-                            className="w-24"
-                            onBlur={(e) =>
-                              handleEditComplete(item.id, "quantity", e.target.value)
-                            }
-                            onKeyDown={(e) =>
-                              handleKeyDown(e, item.id, "quantity", e.currentTarget.value)
-                            }
-                          />
-                        ) : (
-                          <span
-                            onClick={() => handleEdit(item.id, "quantity")}
-                            className="cursor-pointer hover:bg-accent hover:text-accent-foreground px-2 rounded"
-                          >
-                            {getNumberValue(item.quantity)}
-                          </span>
-                        )}
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-xs text-muted-foreground">Total:</span>
-                        <span className="font-medium">
-                          {formatPrice(getNumberValue(item.quantity) * getNumberValue(item.unitPrice))}
-                        </span>
-                      </div>
+
                       <div className="flex flex-col gap-0.5">
                         <div className="flex justify-between items-center">
-                          <span className="text-xs text-muted-foreground mt-4">Compartido por</span>
+                          <span className="text-xs text-muted-foreground">Compartido por</span>
                         </div>
 
                         {selectedReceipt.people && selectedReceipt.people.length > 0 ? (
@@ -807,7 +789,6 @@ export function Splitter() {
                             "flex flex-wrap gap-1",
                             item.owners.length === 0 && "pulse-outline rounded-lg p-1"
                           )}>
-
                             {selectedReceipt.people.map((person) => (
                               <ItemCardPerson
                                 key={person}
@@ -828,6 +809,30 @@ export function Splitter() {
                             ⚠️ Selecciona quiénes compartieron este ítem
                           </span>
                         )}
+                      </div>
+
+                      <div className="flex gap-1 pt-2 border-t">
+                        {getNumberValue(item.quantity) > 1 && (
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleSplitItem(item.id)}
+                            className="h-7 text-xs text-muted-foreground hover:text-primary flex-1"
+                            title="Dividir en ítems individuales"
+                          >
+                            <Split className="h-3 w-3" />
+                            Separar
+                          </Button>
+                        )}
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setItemToDelete(item.id)}
+                          className="h-7 text-xs text-muted-foreground hover:text-destructive flex-1"
+                        >
+                          <Trash2 className="h-3 w-3" />
+                          Eliminar
+                        </Button>
                       </div>
                     </ItemCardContent>
                   </ItemCard>
