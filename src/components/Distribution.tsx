@@ -411,7 +411,7 @@ export function Distribution() {
                 });
               }
             }}
-            className="w-full sm:w-[200px] bg-black text-white hover:bg-black/90 border-black"
+            className="w-full sm:w-[200px] bg-black text-white hover:shadow-glow"
           >
             📋 Copiar al Portapapeles
           </Button>
@@ -419,7 +419,7 @@ export function Distribution() {
             variant="outline"
             size="sm"
             onClick={shareViaWhatsApp}
-            className="w-full sm:w-[200px] bg-black text-white hover:bg-black/90 border-black"
+            className="w-full sm:w-[200px] bg-black text-white hover:shadow-glow"
           >
             📱 Enviar por WhatsApp
           </Button>
