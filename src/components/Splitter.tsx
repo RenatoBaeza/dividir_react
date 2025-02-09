@@ -22,7 +22,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/components/hooks/use-toast";
 import "@/styles/animations.css";
 import { cn, formatPrice } from "@/lib/utils";
-import { Trash2, Split, Pencil } from "lucide-react";
+import { Trash2, Split, Pencil, Plus } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -848,6 +848,20 @@ export function Splitter() {
                     </ItemCardContent>
                   </ItemCard>
                 ))}
+                
+                {/* Add Item Card */}
+                <ItemCard 
+                  className="border-dashed bg-muted/50 hover:bg-muted cursor-pointer transition-colors"
+                  onClick={handleAddItem}
+                >
+                  <ItemCardContent className="flex flex-col items-center justify-center h-full py-8 text-muted-foreground">
+                    <div className="h-12 w-12 rounded-full bg-muted-foreground/10 flex items-center justify-center mb-4">
+                      <Plus className="h-6 w-6" />
+                    </div>
+                    <p className="text-lg font-medium">Agregar ítem</p>
+                    <p className="text-sm">Click para agregar un nuevo ítem</p>
+                  </ItemCardContent>
+                </ItemCard>
               </div>
             </div>
           </div>
@@ -856,9 +870,6 @@ export function Splitter() {
           <div className="fixed bottom-0 left-0 right-0 bg-background border-t p-4 shadow-lg">
             <div className="container mx-auto flex flex-col sm:flex-row gap-2">
               <div className="grid grid-cols-2 sm:flex sm:flex-row gap-2 sm:flex-1">
-                <Button variant="secondary" onClick={handleAddItem} size="sm" className="sm:w-auto">
-                  ➕ Item
-                </Button>
                 <Button 
                   variant="secondary" 
                   onClick={handleEditPeople} 
@@ -889,7 +900,7 @@ export function Splitter() {
           <DialogHeader>
             <DialogTitle>Modificar personas</DialogTitle>
           </DialogHeader>
-          <div className="flex flex-col h-full max-h-[60vh]">
+          <div className="flex flex-col h-full max-h-[60vh] mx-12 px-5">
             <ScrollArea className="flex-1">
               <div className="space-y-3 py-4 pr-4">
                 {editingPeople.map((person, index) => (
@@ -912,7 +923,7 @@ export function Splitter() {
                 ))}
               </div>
             </ScrollArea>
-            <div className="border-t pt-4 mt-4 space-y-4">
+            <div className="border-t pt-4 mt-4 space-y-4 mx-auto">
               {editingPeople.length < 10 && (
                 <Button
                   type="button"
@@ -920,7 +931,7 @@ export function Splitter() {
                   onClick={handleAddPerson}
                   className="w-full"
                 >
-                  Agregar persona
+                  ➕Agregar persona
                 </Button>
               )}
               <DialogFooter>
@@ -946,8 +957,7 @@ export function Splitter() {
           </DialogHeader>
           <div className="flex flex-col h-full max-h-[60vh]">
             <ScrollArea className="flex-1">
-
-              <div className="space-y-4 py-4 pr-4">
+              <div className="space-y-2 py-2 pr-">
                 {newItems.map((item, index) => (
                   <div key={index} className="space-y-2">
                     <div className="flex gap-2">
@@ -1021,11 +1031,10 @@ export function Splitter() {
                   onClick={handleSaveItems}
                   disabled={!newItems.some(item => item.name.trim() !== '')}
                 >
-                  Guardar
+                  Agregar
                 </Button>
               </DialogFooter>
             </div>
-
           </div>
         </DialogContent>
       </Dialog>
