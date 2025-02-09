@@ -21,7 +21,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/components/hooks/use-toast";
 import "@/styles/animations.css";
-import { cn, formatPrice } from "@/lib/utils";
+import { formatPrice } from "@/lib/utils";
 import { Trash2, Split, Pencil, Plus } from "lucide-react";
 import {
   AlertDialog,
