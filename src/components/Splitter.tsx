@@ -22,7 +22,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/components/hooks/use-toast";
 import "@/styles/animations.css";
 import { cn, formatPrice } from "@/lib/utils";
-import { Trash2, Split } from "lucide-react";
+import { Trash2, Split, Pencil } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -69,7 +69,8 @@ interface PendingChanges {
   people?: string[];
 }
 
-const getNumberValue = (value: number | MongoNumber): number => {
+const getNumberValue = (value: number | MongoNumber | undefined): number => {
+  if (value === undefined) return 0;
   if (typeof value === 'number') return value;
   if (value.$numberInt) return parseInt(value.$numberInt);
   if (value.$numberDouble) return parseFloat(value.$numberDouble);
@@ -101,6 +102,7 @@ export function Splitter() {
   const [pendingChanges, setPendingChanges] = useState<PendingChanges>({});
   const [itemToDelete, setItemToDelete] = useState<string | null>(null);
   const [editingTip, setEditingTip] = useState(false);
+  const [editingItemId, setEditingItemId] = useState<string | null>(null);
 
   const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -827,6 +829,15 @@ export function Splitter() {
                         <Button
                           variant="ghost"
                           size="sm"
+                          onClick={() => setEditingItemId(item.id)}
+                          className="h-7 text-xs text-muted-foreground hover:text-primary flex-1"
+                        >
+                          <Pencil className="h-3 w-3" />
+                          Editar
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
                           onClick={() => setItemToDelete(item.id)}
                           className="h-7 text-xs text-muted-foreground hover:text-destructive flex-1"
                         >
@@ -1035,6 +1046,71 @@ export function Splitter() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <Dialog open={editingItemId !== null} onOpenChange={() => setEditingItemId(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Editar ítem</DialogTitle>
+          </DialogHeader>
+          {editingItemId && selectedReceipt && (
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label htmlFor="name" className="text-sm font-medium">
+                  Nombre
+                </label>
+                <Input
+                  id="name"
+                  defaultValue={selectedReceipt.items.find(i => i.id === editingItemId)?.name}
+                  onChange={(e) => {
+                    if (!editingItemId) return;
+                    handleEditComplete(editingItemId, "name", e.target.value);
+                  }}
+                />
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="price" className="text-sm font-medium">
+                  Precio unitario
+                </label>
+
+                <Input
+                  id="price"
+                  type="number"
+                  step="0.01"
+                  defaultValue={getNumberValue(
+                    selectedReceipt.items.find(i => i.id === editingItemId)?.unitPrice
+                  )}
+                  onChange={(e) => {
+                    if (!editingItemId) return;
+                    handleEditComplete(editingItemId, "unitPrice", e.target.value);
+                  }}
+                />
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="quantity" className="text-sm font-medium">
+                  Cantidad
+                </label>
+                <Input
+                  id="quantity"
+                  type="number"
+                  min="1"
+                  defaultValue={getNumberValue(
+                    selectedReceipt.items.find(i => i.id === editingItemId)?.quantity
+                  )}
+                  onChange={(e) => {
+                    if (!editingItemId) return;
+                    handleEditComplete(editingItemId, "quantity", e.target.value);
+                  }}
+                />
+              </div>
+            </div>
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setEditingItemId(null)}>
+              Cerrar
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
