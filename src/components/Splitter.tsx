@@ -787,10 +787,7 @@ export function Splitter() {
                         </div>
 
                         {selectedReceipt.people && selectedReceipt.people.length > 0 ? (
-                          <div className={cn(
-                            "flex flex-wrap gap-1",
-                            item.owners.length === 0 && "pulse-outline rounded-lg p-1"
-                          )}>
+                          <div className="flex flex-wrap items-center gap-1">
                             {selectedReceipt.people.map((person) => (
                               <ItemCardPerson
                                 key={person}
@@ -800,6 +797,15 @@ export function Splitter() {
                                 {person}
                               </ItemCardPerson>
                             ))}
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleEditPeople();
+                              }}
+                              className="inline-flex items-center justify-center rounded-full bg-secondary hover:bg-secondary/80 transition-colors"
+                            >
+                              <span className="text-sm text-secondary-foreground flex-auto">👤➕</span>
+                            </button>
                           </div>
                         ) : (
                           <span className="text-xs text-muted-foreground italic">
@@ -867,30 +873,18 @@ export function Splitter() {
           </div>
 
           {/* Fixed Footer */}
-          <div className="fixed bottom-0 left-0 right-0 bg-background border-t p-4 shadow-lg">
-            <div className="container mx-auto flex flex-col sm:flex-row gap-2">
-              <div className="grid grid-cols-2 sm:flex sm:flex-row gap-2 sm:flex-1">
-                <Button 
-                  variant="secondary" 
-                  onClick={handleEditPeople} 
-                  size="sm" 
-                  className="sm:w-auto"
-                >
-                  ✏️ Modificar personas
-                </Button>
-              </div>
-              <Button
+          <div className="fixed bottom-0 left-0 right-0 bg-background border-t p-4 shadow-lg flex justify-center">
+          <Button
                 variant="default"
                 onClick={handleSaveAndNavigate}
                 size="sm"
-                className="w-full sm:w-auto"
+                className="w-auto"
                 disabled={selectedReceipt.items.every(item => item.owners.length === 0)}
               >
                 {selectedReceipt.items.every(item => item.owners.length === 0)
                   ? "Selecciona quién compartió cada ítem ✋"
                   : "Guardar y Ver Distribución ✅"}
               </Button>
-            </div>
           </div>
         </>
       )}
