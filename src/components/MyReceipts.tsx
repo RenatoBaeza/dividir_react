@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { UploadButton } from './UploadButton';
-import { Trash2, Upload } from "lucide-react";
+import { Trash2, Upload, Plus } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -10,7 +10,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,6 +22,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useToast } from "@/components/hooks/use-toast";
 import { formatCurrency } from "@/lib/utils";
+import { UploadModal } from './UploadModal';
+import axios from 'axios';
 
 interface ReceiptSummary {
   receiptId: string;
@@ -53,6 +54,7 @@ export function MyReceipts() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [receiptToDelete, setReceiptToDelete] = useState<string | null>(null);
+  const [showUploadModal, setShowUploadModal] = useState(false);
 
   const { user } = useAuth();
   const userEmail = user?.email;
@@ -98,6 +100,41 @@ export function MyReceipts() {
       setReceiptToDelete(null);
     }
   };
+
+  const handleUpload = async (file: File, people: string[]) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('people', JSON.stringify(people));
+
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/receipts/upload`, formData, {
+        params: {
+          user_email: userEmail
+        },
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        timeout: 60000,
+      });
+
+      navigate(`/receipts/${response.data.receiptId}`);
+      
+      toast({
+        title: "Boleta subida",
+        description: "Tu boleta ha sido procesada y está lista para dividir.",
+      });
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        console.error('Server error details:', error.response.data);
+      }
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Hubo un error al subir tu boleta.",
+      });
+    }
+  };
+
   useEffect(() => {
     const fetchReceipts = async () => {
       if (!userEmail) return;
@@ -172,46 +209,63 @@ export function MyReceipts() {
           </CardContent>
         </Card>
       ) : (
-        <ScrollArea className="h-[600px]">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {receipts.map((receipt) => (
-              <Card 
-                key={receipt.receiptId}
-                className="cursor-pointer hover:bg-accent transition-colors"
-                onClick={() => navigate(`/receipts/${receipt.receiptId}`)}
-              >
-                <CardHeader className="flex flex-row items-center justify-between">
-                  <CardTitle>{receipt.placeName}</CardTitle>
-                  <button
-                    onClick={(e) => handleDelete(receipt.receiptId, e)}
-                    className="h-8 w-8 flex items-center justify-center hover:bg-destructive hover:text-destructive-foreground rounded-full"
-                    aria-label="Delete receipt"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </button>
-                </CardHeader>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {receipts.map((receipt) => (
+            <Card 
+              key={receipt.receiptId}
+              className="cursor-pointer hover:bg-accent transition-colors"
+              onClick={() => navigate(`/receipts/${receipt.receiptId}`)}
+            >
+              <CardHeader className="flex flex-row items-center justify-between">
+                <CardTitle>{receipt.placeName}</CardTitle>
+                <button
+                  onClick={(e) => handleDelete(receipt.receiptId, e)}
+                  className="h-8 w-8 flex items-center justify-center hover:bg-destructive hover:text-destructive-foreground rounded-full"
+                  aria-label="Delete receipt"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              </CardHeader>
 
-                <CardContent>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between text-muted-foreground">
-                      <span>Fecha:</span>
-                      <span>{new Date(receipt.creationDateTime).toLocaleDateString()}</span>
-                    </div>
-                    <div className="flex justify-between text-muted-foreground">
-                      <span>Personas:</span>
-                      <span>{receipt.people.length}</span>
-                    </div>
-                    <div className="flex justify-between font-medium">
-                      <span>Total con propina:</span>
-                      <span>${formatCurrency(calculateReceiptTotals(receipt))}</span>
-                    </div>
+              <CardContent>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between text-muted-foreground">
+                    <span>Fecha:</span>
+                    <span>{new Date(receipt.creationDateTime).toLocaleDateString()}</span>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </ScrollArea>
+                  <div className="flex justify-between text-muted-foreground">
+                    <span>Personas:</span>
+                    <span>{receipt.people.length}</span>
+                  </div>
+                  <div className="flex justify-between font-medium">
+                    <span>Total con propina:</span>
+                    <span>${formatCurrency(calculateReceiptTotals(receipt))}</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+
+          <Card 
+            className="cursor-pointer hover:bg-accent transition-colors border-dashed bg-muted/50"
+            onClick={() => setShowUploadModal(true)}
+          >
+            <CardContent className="flex flex-col items-center justify-center h-full py-8 text-muted-foreground">
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                <Plus className="h-6 w-6" />
+              </div>
+              <p className="text-lg font-medium">Agregar cuenta</p>
+              <p className="text-sm">Click para agregar una nueva cuenta</p>
+            </CardContent>
+          </Card>
+        </div>
       )}
+
+      <UploadModal 
+        open={showUploadModal}
+        onOpenChange={setShowUploadModal}
+        onSubmit={handleUpload}
+      />
 
       <AlertDialog open={receiptToDelete !== null} onOpenChange={() => setReceiptToDelete(null)}>
         <AlertDialogContent>

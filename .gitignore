@@ -114,3 +114,5 @@ venv/
 ENV/
 env/
 env.bak/
+# Million Lint
+.million

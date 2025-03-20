@@ -7,8 +7,9 @@ import {
   ToastTitle,
   ToastViewport,
 } from "@/components/ui/toast"
+import { memo } from "react"
 
-export function Toaster() {
+export const Toaster = memo(function Toaster() {
   const { toasts } = useToast()
 
   return (
@@ -30,4 +31,4 @@ export function Toaster() {
       <ToastViewport />
     </ToastProvider>
   )
-}
+})
