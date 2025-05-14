@@ -187,7 +187,10 @@ export function Distribution() {
     
     Object.entries(totals).forEach(([person, total]) => {
       const personTotal = Object.values(total.individual).reduce((a, b) => a + b, 0) + total.shared;
-      text += `\n${person}: ${formatPrice(personTotal)}`;
+      const personBaseAmount = personTotal / (1 + receipt.tipPercent);
+      const personTipAmount = personTotal - personBaseAmount;
+      
+      text += `\n${person}: ${formatPrice(personBaseAmount)} (+${formatPrice(personTipAmount)}): ${formatPrice(personTotal)}`;
       
       if (Object.keys(total.individual).length > 0) {
         Object.entries(total.individual).forEach(([itemName]) => {
